@@ -40,9 +40,9 @@ La función devuelve True si la etiqueta está en la lista de etiquetas, y False
 
 testing =
   [ nuevoT "Flowers" "Miley Cyrus" == Tem "Flowers" [] "Miley Cyrus",
-    nombreT "Flowers" ["Pop" "Funk"] "Miley Cyrus" == "Flowers",
-    datosT "Flowers" ["Pop" "Funk"] "Miley Cyrus" == "Miley Cyrus",
-    etiquetasT "Flowers" ["Pop" "Funk"] "Miley Cyrus" == ["Pop", "Funk"],
-    agregarT ["Disco"] "Flowers" ["Pop" "Funk"] "Miley Cyrus" == "Flowers" ["Pop" "Funk" "Disco"] "Miley Cyrus",
-    aplicaT ["Pop"] "Flowers" ["Pop" "Funk"] "Miley Cyrus" == True
+    nombreT (Tem "Flowers" ["Pop", "Funk"] "Miley Cyrus") == "Flowers",
+    datosT (Tem "Flowers" ["Pop", "Funk"] "Miley Cyrus") == "Miley Cyrus",
+    etiquetasT (Tem "Flowers" ["Pop", "Funk"] "Miley Cyrus") == ["Pop", "Funk"],
+    agregarT "Disco" (Tem "Flowers" ["Pop", "Funk"] "Miley Cyrus") == (Tem "Flowers" ["Disco", "Pop", "Funk"] "Miley Cyrus"),
+    aplicaT "Pop" (Tem "Flowers" ["Pop", "Funk"] "Miley Cyrus") == True
   ]
