@@ -37,3 +37,12 @@ aplicaT etiqueta (Tem _ etiquetas _) = etiqueta `elem` etiquetas
 {-Este patrón de implementación coincide con el Tema para extraer su lista de etiquetas y,
 a continuación, utiliza la función elem para comprobar si la etiqueta dada está en la lista de etiquetas.
 La función devuelve True si la etiqueta está en la lista de etiquetas, y False en caso contrario.-}
+
+testing =
+  [ nuevoT "Flowers" "Miley Cyrus" == Tem "Flowers" [] "Miley Cyrus",
+    nombreT "Flowers" ["Pop" "Funk"] "Miley Cyrus" == "Flowers",
+    datosT "Flowers" ["Pop" "Funk"] "Miley Cyrus" == "Miley Cyrus",
+    etiquetasT "Flowers" ["Pop" "Funk"] "Miley Cyrus" == ["Pop", "Funk"],
+    agregarT ["Disco"] "Flowers" ["Pop" "Funk"] "Miley Cyrus" == "Flowers" ["Pop" "Funk" "Disco"] "Miley Cyrus",
+    aplicaT ["Pop"] "Flowers" ["Pop" "Funk"] "Miley Cyrus" == True
+  ]
