@@ -48,11 +48,11 @@ resetP :: Playlist -> Playlist
 resetP (Play _ temas) = Play 0 temas
 -}
 
-flowers = nuevoT "Flowers" "Miley Cyrus" -- pop y funk--
+flowers = agregarT "Pop" (agregarT "Funk" (nuevoT "Flowers" "Miley Cyrus"))
 
-fixYou = nuevoT "Fix You" "Coldplay" -- rock--
+fixYou = agregarT "Rock" (nuevoT "Fix You" "Coldplay")
 
-plasticHearts = nuevoT "Plastic Hearts" "Miley Cyrus" -- pop y rock--
+plasticHearts = agregarT "Pop" (agregarT "Rock" (nuevoT "Plastic Hearts" "Miley Cyrus"))
 
 testing =
   [ nuevaP [flowers, fixYou, plasticHearts] == Play 0 [flowers, fixYou, plasticHearts],
