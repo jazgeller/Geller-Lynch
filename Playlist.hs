@@ -1,7 +1,7 @@
 module Playlist (Playlist, nuevaP, actualP, skipP, backP, resetP) where
 
-import Tema (Tema)
-import Tipos ()
+import Tema
+import Tipos
 
 data Playlist = Play Int [Tema] deriving (Eq, Show)
 
@@ -47,3 +47,18 @@ backP (Play i temas) = Play (max (i-1) 0) temas
 resetP :: Playlist -> Playlist
 resetP (Play _ temas) = Play 0 temas
 -}
+
+flowers = nuevoT "Flowers" "Miley Cyrus" -- pop y funk--
+
+fixYou = nuevoT "Fix You" "Coldplay" -- rock--
+
+plasticHearts = nuevoT "Plastic Hearts" "Miley Cyrus" -- pop y rock--
+
+testing =
+  [ nuevaP [flowers, fixYou, plasticHearts] == Play 0 [flowers, fixYou, plasticHearts],
+    actualP (Play 0 [flowers, fixYou, plasticHearts]) == flowers,
+    skipP (Play 0 [flowers, fixYou, plasticHearts]) == Play 1 [flowers, fixYou, plasticHearts],
+    skipP (Play 1 [flowers, fixYou, plasticHearts]) == Play 2 [flowers, fixYou, plasticHearts],
+    backP (Play 2 [flowers, fixYou, plasticHearts]) == Play 1 [flowers, fixYou, plasticHearts],
+    resetP (Play 0 [flowers, fixYou, plasticHearts]) == Play 0 [flowers, fixYou, plasticHearts]
+  ]
