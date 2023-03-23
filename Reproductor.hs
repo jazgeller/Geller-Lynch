@@ -49,8 +49,8 @@ actualR (RP _ playlist) = P.actualP playlist
 
 avanzar R, RetrocederR y reiniciarR
 
--- Create a new player with a playlist containing the given theme
--- and its labels added to the file system if necessary
+-- Crear un nuevo reproductor con una lista de reproducción que contenga el tema dado
+-- y sus etiquetas añadidas al sistema de archivos si es necesario
 agregarTema :: Tema -> Reproductor -> Reproductor
 agregarTema tema (RP (FS etiquetas temas) playlist) = RP (FS etiquetas temas') playlist'
     where temas' = agregarTemaFS tema temas etiquetas
