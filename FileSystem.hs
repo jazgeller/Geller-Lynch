@@ -34,11 +34,11 @@ agregarF t (FS etiquetas temas) = FS nuevasEtiquetas nuevosTemas
 filtrarF :: Etiqueta -> FileSystem -> [Tema]
 filtrarF etiqueta (FS _ temas) = filter (aplicaT etiqueta) temas
 
-flowers = (agregarT "Pop" (agregarT "Funk" (nuevoT "Flowers" "Miley Cyrus")))
+flowers = agregarT "Pop" (agregarT "Funk" (nuevoT "Flowers" "Miley Cyrus"))
 
 fixYou = agregarT "Rock" (nuevoT "Fix You" "Coldplay")
 
-plasticHearts = (agregarT "Pop" (agregarT "Rock" (nuevoT "Plastic Hearts" "Miley Cyrus")))
+plasticHearts = agregarT "Pop" (agregarT "Rock" (nuevoT "Plastic Hearts" "Miley Cyrus"))
 
 greatestLove = agregarT "Pop" (nuevoT "Greatest Love of All" "Whitney Houston")
 
