@@ -1,5 +1,6 @@
 module FileSystem (FileSystem, nuevoF, etiquetasF, temasF, agregarF, filtrarF) where
 
+import Data.List (foldl')
 import Tema
 import Tipos
 
@@ -18,16 +19,48 @@ etiquetasF (FS etiquetas _) = etiquetas
 temasF :: FileSystem -> [Tema]
 temasF (FS _ temas) = temas
 
+{-Definimos una función auxiliar, agregarTema: que agrega un tema al sistema de archivos y
+sus etiquetas al conjunto de etiquetas del sistema, para evitar la repetición de código. -}
+
 agregarF :: Tema -> FileSystem -> FileSystem
 agregarF t (FS etiquetas temas) = FS nuevasEtiquetas nuevosTemas
   where
     nuevasEtiquetas = etiquetas ++ filter (`notElem` etiquetas) (etiquetasT t)
     nuevosTemas = temas ++ [t]
 
--- CHEQUEAR-- -!!!!--
-
 -- Primero utilizamos la coincidencia de patrones para extraer las listas de etiquetas y temas del sistema de archivos. Definimos entonces dos nuevas listas: nuevasEtiquetas y nuevosTemas.--
 
 -- Agrega el tema y sus etiquetas de ser necesario.--
 filtrarF :: Etiqueta -> FileSystem -> [Tema]
 filtrarF etiqueta (FS _ temas) = filter (aplicaT etiqueta) temas
+
+flowers = nuevoT "Flowers" "Miley Cyrus"
+
+flowers1 = agregarT "Pop" (flowers)
+
+flowers2 = agregarT "Funk" (flowers1)
+
+fixYou = nuevoT "Fix You" "Coldplay"
+
+fixYou1 = agregarT "Rock" (fixYou)
+
+plasticHearts = nuevoT "Plastic Hearts" "Miley Cyrus"
+
+plasticHearts1 = agregarT "Pop" (plasticHearts)
+
+plasticHearts2 = agregarT "Rock" (plasticHearts1)
+
+greatestLove = nuevoT "Greatest Love of All" "Whitney Houston"
+
+greatestLove1 = agregarT "Pop" (greatestLove)
+
+testing =
+  [ nuevoF == FS [] [],
+    etiquetasF (FS ["Pop", "Funk", "Rock"] [flowers2, fixYou1, plasticHearts2]) == ["Pop", "Funk", "Rock"],
+    temasF (FS ["Pop", "Funk", "Rock"] [flowers2, fixYou1, plasticHearts2]) == [flowers2, fixYou1, plasticHearts2],
+    agregarF (greatestLove1) (FS ["Pop", "Funk", "Rock"] [flowers2, fixYou1, plasticHearts2]) == FS ["Pop", "Funk", "Rock"] [flowers2, fixYou1, plasticHearts2, greatestLove1],
+    filtrarF "Rock" (FS ["Pop", "Funk", "Rock"] [flowers2, fixYou1, plasticHearts2]) == [fixYou1, plasticHearts2],
+    filtrarF "Pop" (FS ["Pop", "Funk", "Rock"] [flowers2, fixYou1, plasticHearts2]) == [flowers2, plasticHearts2],
+    filtrarF "Funk" (FS ["Pop", "Funk", "Rock"] [flowers2, fixYou1, plasticHearts2]) == [flowers2],
+    filtrarF "Disco" (FS ["Pop", "Funk", "Rock"] [flowers2, fixYou1, plasticHearts2]) == []
+  ]
