@@ -1,6 +1,6 @@
 module Tema (Tema, nuevoT, nombreT, datosT, etiquetasT, agregarT, aplicaT) where
 
-import Tipos (Datos, Etiqueta, Nombre)
+import Tipos
 
 data Tema = Tem Nombre [Etiqueta] Datos deriving (Eq, Show, Ord)
 
