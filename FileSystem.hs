@@ -34,33 +34,21 @@ agregarF t (FS etiquetas temas) = FS nuevasEtiquetas nuevosTemas
 filtrarF :: Etiqueta -> FileSystem -> [Tema]
 filtrarF etiqueta (FS _ temas) = filter (aplicaT etiqueta) temas
 
-flowers = nuevoT "Flowers" "Miley Cyrus"
+flowers = (agregarT "Pop" (agregarT "Funk" (nuevoT "Flowers" "Miley Cyrus")))
 
-flowers1 = agregarT "Pop" (flowers)
+fixYou = agregarT "Rock" (nuevoT "Fix You" "Coldplay")
 
-flowers2 = agregarT "Funk" (flowers1)
+plasticHearts = (agregarT "Pop" (agregarT "Rock" (nuevoT "Plastic Hearts" "Miley Cyrus")))
 
-fixYou = nuevoT "Fix You" "Coldplay"
-
-fixYou1 = agregarT "Rock" (fixYou)
-
-plasticHearts = nuevoT "Plastic Hearts" "Miley Cyrus"
-
-plasticHearts1 = agregarT "Pop" (plasticHearts)
-
-plasticHearts2 = agregarT "Rock" (plasticHearts1)
-
-greatestLove = nuevoT "Greatest Love of All" "Whitney Houston"
-
-greatestLove1 = agregarT "Pop" (greatestLove)
+greatestLove = agregarT "Pop" (nuevoT "Greatest Love of All" "Whitney Houston")
 
 testing =
   [ nuevoF == FS [] [],
-    etiquetasF (FS ["Pop", "Funk", "Rock"] [flowers2, fixYou1, plasticHearts2]) == ["Pop", "Funk", "Rock"],
-    temasF (FS ["Pop", "Funk", "Rock"] [flowers2, fixYou1, plasticHearts2]) == [flowers2, fixYou1, plasticHearts2],
-    agregarF (greatestLove1) (FS ["Pop", "Funk", "Rock"] [flowers2, fixYou1, plasticHearts2]) == FS ["Pop", "Funk", "Rock"] [flowers2, fixYou1, plasticHearts2, greatestLove1],
-    filtrarF "Rock" (FS ["Pop", "Funk", "Rock"] [flowers2, fixYou1, plasticHearts2]) == [fixYou1, plasticHearts2],
-    filtrarF "Pop" (FS ["Pop", "Funk", "Rock"] [flowers2, fixYou1, plasticHearts2]) == [flowers2, plasticHearts2],
-    filtrarF "Funk" (FS ["Pop", "Funk", "Rock"] [flowers2, fixYou1, plasticHearts2]) == [flowers2],
-    filtrarF "Disco" (FS ["Pop", "Funk", "Rock"] [flowers2, fixYou1, plasticHearts2]) == []
+    etiquetasF (FS ["Pop", "Funk", "Rock"] [flowers, fixYou, plasticHearts]) == ["Pop", "Funk", "Rock"],
+    temasF (FS ["Pop", "Funk", "Rock"] [flowers, fixYou, plasticHearts]) == [flowers, fixYou, plasticHearts],
+    agregarF (greatestLove) (FS ["Pop", "Funk", "Rock"] [flowers, fixYou, plasticHearts]) == FS ["Pop", "Funk", "Rock"] [flowers, fixYou, plasticHearts, greatestLove],
+    filtrarF "Rock" (FS ["Pop", "Funk", "Rock"] [flowers, fixYou, plasticHearts]) == [fixYou, plasticHearts],
+    filtrarF "Pop" (FS ["Pop", "Funk", "Rock"] [flowers, fixYou, plasticHearts]) == [flowers, plasticHearts],
+    filtrarF "Funk" (FS ["Pop", "Funk", "Rock"] [flowers, fixYou, plasticHearts]) == [flowers],
+    filtrarF "Disco" (FS ["Pop", "Funk", "Rock"] [flowers, fixYou, plasticHearts]) == []
   ]
