@@ -48,7 +48,7 @@ resetP :: Playlist -> Playlist
 resetP (Play _ temas) = Play 0 temas
 -}
 
-flowers = agregarT "Pop" (agregarT "Funk" (nuevoT "Flowers" "Miley Cyrus"))
+flowers = agregarT "Disco" (agregarT "Pop" (agregarT "Funk" (nuevoT "Flowers" "Miley Cyrus")))
 
 fixYou = agregarT "Rock" (nuevoT "Fix You" "Coldplay")
 
