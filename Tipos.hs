@@ -15,4 +15,3 @@ insertar x (y : ys)
   | x <= y = x : y : ys -- si x es menor o igual al primer elemento, insertarlo al principio--
   -- la expresión x : y : ys construye una lista que comienza con el elemento x, seguido por el elemento y, y luego los elementos restantes de la lista ys.--
   | otherwise = y : insertar x ys -- otherwise, insertarlo recursivamente al final de la lista--
-  ---
