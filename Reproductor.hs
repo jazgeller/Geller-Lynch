@@ -20,7 +20,6 @@ listaParaR etiqueta (RP fs _) = filtrarF etiqueta fs
 temasR :: Reproductor -> [Tema]
 temasR rp = temasF (archivosR rp)
 
--- COMO HACER PARA USAR EL CONSTRUCTOR DE OTRO--
 -- temasR (RP _ pl) = actualP pl--
 
 playR :: Reproductor -> Etiqueta -> Reproductor
@@ -28,8 +27,6 @@ playR (RP fs playlist) etiqueta = RP fs (nuevaP (filtrarF etiqueta fs))
 
 actualR :: Reproductor -> Tema
 actualR (RP _ playlist) = actualP playlist
-
--- chequear si usar pl o p como en el modulo playlist--
 
 avanzarR :: Reproductor -> Reproductor
 avanzarR (RP fs playlist) = RP fs (skipP playlist)

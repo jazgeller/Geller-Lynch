@@ -6,7 +6,6 @@ import Tipos
 
 data FileSystem = FS [Etiqueta] [Tema] deriving (Eq, Show)
 
--- no se puede usar pattern matching sobre temas y etiquetas --
 nuevoF :: FileSystem
 nuevoF = FS [] []
 
@@ -19,16 +18,11 @@ etiquetasF (FS etiquetas _) = etiquetas
 temasF :: FileSystem -> [Tema]
 temasF (FS _ temas) = temas
 
-{-Definimos una función auxiliar, agregarTema: que agrega un tema al sistema de archivos y
-sus etiquetas al conjunto de etiquetas del sistema, para evitar la repetición de código. -}
-
 agregarF :: Tema -> FileSystem -> FileSystem
 agregarF t (FS etiquetas temas) = FS nuevasEtiquetas nuevosTemas
   where
     nuevasEtiquetas = etiquetas ++ filter (`notElem` etiquetas) (etiquetasT t)
     nuevosTemas = temas ++ [t]
-
--- Primero utilizamos la coincidencia de patrones para extraer las listas de etiquetas y temas del sistema de archivos. Definimos entonces dos nuevas listas: nuevasEtiquetas y nuevosTemas.--
 
 -- Agrega el tema y sus etiquetas de ser necesario.--
 filtrarF :: Etiqueta -> FileSystem -> [Tema]
