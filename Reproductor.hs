@@ -15,9 +15,7 @@ archivosR :: Reproductor -> FileSystem
 archivosR (RP fs _) = fs
 
 listaParaR :: Etiqueta -> Reproductor -> [Tema]
-listaParaR e (RP fs _) = filtrarF e fs
-
--- e = Etiqueta--
+listaParaR etiqueta (RP fs _) = filtrarF etiqueta fs
 
 temasR :: Reproductor -> [Tema]
 temasR rp = temasF (archivosR rp)
@@ -26,7 +24,7 @@ temasR rp = temasF (archivosR rp)
 -- temasR (RP _ pl) = actualP pl--
 
 playR :: Reproductor -> Etiqueta -> Reproductor
-playR (RP fs playlist) label = RP fs (nuevaP (filtrarF label fs))
+playR (RP fs playlist) etiqueta = RP fs (nuevaP (filtrarF etiqueta fs))
 
 actualR :: Reproductor -> Tema
 actualR (RP _ playlist) = actualP playlist
@@ -40,18 +38,26 @@ retrocederR :: Reproductor -> Reproductor
 retrocederR (RP fs playlist) = RP fs (backP playlist)
 
 reiniciarR :: Reproductor -> Reproductor
-reiniciarR (RP fs _) = RP fs (resetP playlist)
+reiniciarR (RP fs playlist) = RP fs (resetP playlist)
 
-{-
--- Tener el tema actual de la playlist de la persona--
-actualR :: Reproductor -> Tema --CHEQUEAR--
-actualR (RP _ playlist) = P.actualP playlist
+flowers = agregarT "Disco" (agregarT "Pop" (agregarT "Funk" (nuevoT "Flowers" "Miley Cyrus")))
 
-avanzar R, RetrocederR y reiniciarR
+fixYou = agregarT "Rock" (nuevoT "Fix You" "Coldplay")
 
--- Crear un nuevo reproductor con una lista de reproducción que contenga el tema dado
--- y sus etiquetas añadidas al sistema de archivos si es necesario
-agregarTema :: Tema -> Reproductor -> Reproductor
-agregarTema tema (RP (FS etiquetas temas) playlist) = RP (FS etiquetas temas') playlist'
-    where temas' = agregarTemaFS tema temas etiquetas
-          playlist' = agregarF tema (RP (FS etiquetas temas') playlist)-}
+plasticHearts = agregarT "Pop" (agregarT "Rock" (nuevoT "Plastic Hearts" "Miley Cyrus"))
+
+fileSystem = agregarF plasticHearts (agregarF fixYou (agregarF flowers (nuevoF)))
+
+playlist = nuevaP [flowers, fixYou, plasticHearts]
+
+testing =
+  [ nuevoR fileSystem == RP fileSystem (nuevaP []),
+    archivosR (RP fileSystem playlist) == fileSystem,
+    listaParaR "Pop" (RP fileSystem playlist) == [flowers, plasticHearts],
+    temasR (RP fileSystem playlist) == [flowers, fixYou, plasticHearts],
+    actualR (RP fileSystem playlist) == flowers,
+    actualR (playR (RP fileSystem playlist) "Rock") == fixYou,
+    actualR (avanzarR (RP fileSystem playlist)) == fixYou,
+    actualR (retrocederR (RP fileSystem (skipP playlist))) == flowers,
+    actualR (reiniciarR (RP fileSystem (skipP playlist))) == flowers
+  ]
